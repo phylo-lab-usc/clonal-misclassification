@@ -31,4 +31,8 @@
 
 # 7. Compare the original trees to reshuffled trees
   # Tree-likeness to compare trees
+  # Are the diversification rates, SHM rates, and ancestral states
+  # sensitive to the reshuffling method?
+
+
 
