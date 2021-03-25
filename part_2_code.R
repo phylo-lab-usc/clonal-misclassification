@@ -9,7 +9,7 @@
 
 # 2. Build a megatree of all of the clones (RAxML/IQTree/FastTree)
 
-# 3. Split the megatree into clonal groups (GMYC/RevertToGermline/Clonify)
+# 3. Split the megatree into clonal groups (GMYC)
 
 # 4. Re-align the clonal groups (same method as step 1)
 
