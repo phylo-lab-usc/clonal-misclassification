@@ -9,12 +9,10 @@
 # using partis 
 
 # 2. Group B-cell clones into clusters using partis/clonify/BRILIA
-  # (these programs are lineage assignment methods)
-  # Potentially also use alignment based methods to group clones
-  # into clusters?
+  # these programs are lineage assignment methods
 
 # 3. Build a phylogeny for each cluster
-  # potentially the clustering methods may also include trees
+  # the clustering methods may also include tree building
   # other methods include FastTREE, IQTree, RAxML
 
 # 4. Investigate:
@@ -25,7 +23,7 @@
     # use both the tips and the ancestral clone to find the germline
     # ancestor (VDJ genes)
 
-# **5. Reshuffle the nodes at a certain rate (try several rates)
+# 5. Reshuffle the nodes at a certain rate (try several rates)
   # During step 2?
   # reshuffle clones into different clusters
   # re-align the reshuffled clonal groups (assuming each cluster shares
