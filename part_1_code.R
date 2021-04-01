@@ -28,19 +28,26 @@
     # PAUP/Phangorn/Castor/RAxML/IQTree
     # give ancestral clones to IMGT/RevertToGermline to find germline sequences
 
-# 6. Reshuffle the nodes at a certain rate (try several rates)
+# 7. Reshuffle the nodes at a certain rate (try several rates)
   # during step 2 use different rates to reshuffle the clones
   # reshuffle clones into different clusters
   # re-align the reshuffled clonal groups (assuming each cluster shares
   # an ancestor)
 
-# 7. Repeat steps 3-5 on the resuffled clonal groups
+# 8. Repeat steps 3-6 on the resuffled clonal groups
 
-# 8. Compare the original trees to reshuffled trees
+# 9. Compare the original trees to reshuffled trees
   # Tree-likeness to compare trees
   # Are the diversification rates, SHM rates, and ancestral states
   # sensitive to the reshuffling method?
   # Compare Method A and B on the original and reshuffled trees
+
+#10. Comparing original trees to reshuffled trees 
+  # Compare method A from original to method A from reshuffled
+  # Compare method B from original to method B from reshuffled
+  # Compare method A from original to method B from original
+  # Compare method A from reshuffled to method B from reshuffled
+
 
 
 
