@@ -15,7 +15,7 @@
   # Give output of partis/clonify to IMGT for example to find the VDJ regions
   # Give output of IMGT to RevertToGermline to find the germline sequences
 
-# 4. Build a phylogeny for each cluster
+# 4. Build a phylogeny for each cluster **(depending on partis/clonify outputs)**
   # the clustering methods may also include tree building
   # other methods include FastTREE, IQTree, RAxML
 
@@ -40,7 +40,6 @@
   # Tree-likeness to compare trees
   # Are the diversification rates, SHM rates, and ancestral states
   # sensitive to the reshuffling method?
-  # Compare Method A and B on the original and reshuffled trees
 
 #10. Comparing original trees to reshuffled trees 
   # Compare method A from original to method A from reshuffled
