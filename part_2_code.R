@@ -15,14 +15,20 @@
 
 # 5. Build trees for each clonal group (same method as step 2)
 
-# 6. Investigate:
-  # ancestral states / germline sequences (GMYC/Revert to Germline)
-  # to find the ancestral clone use PAUP/Phangorn/Castor/RAxML/IQTree
-  # use both the tips and the ancestral clone to find the germline
-  # ancestor (VDJ genes)
+# 6. Method A - Germline: Using "tips" (clones) to find the germline (similar to part 1)
+  # Give the trees fo the clonal groups to IMGT for example to find the VDJ regions
+  # Give output of IMGT to RevertToGermline to find the germline sequences
 
-# 7. Compare to Part 1 - do phylogenetic methods perform better than 
-# similarity based methods from part 1 in determining what the ancestral clone
-# and germline sequence(s) are?
+# 7. Method B - Germline: Using "ancestor" (ancestral clone) to find germline (similar to part 1)
+  # use the phylogeny to find the ancestral clone using:
+  # PAUP/Phangorn/Castor/RAxML/IQTree
+  # give ancestral clones to IMGT/RevertToGermline to find germline sequences
+
+#8. Compare Method A (clones) to method B (ancestor) on the set of trees (from part 2 only)
+
+#9. After part 1 and part 2 are complete: 
+  # Compare Method A from part 2 to method A from part 1 original
+  # Compare method B from part 2 to method B from part 1 original
+
 
 
