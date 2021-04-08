@@ -16,12 +16,13 @@
 # 5. Build trees for each clonal group (same method as step 2)
 
 # 6. Method A - Germline: Using "tips" (clones) to find the germline (similar to part 1)
-  # Give the trees fo the clonal groups to IMGT for example to find the VDJ regions
+  # Give the trees of the clonal groups to IMGT for example to find the VDJ regions
   # Give output of IMGT to RevertToGermline to find the germline sequences
+  # one clonal group at a time
 
 # 7. Method B - Germline: Using "ancestor" (ancestral clone) to find germline (similar to part 1)
   # use the phylogeny to find the ancestral clone using:
-  # PAUP/Phangorn/Castor/RAxML/IQTree
+  # Phangorn/RAxML/IQTree/ IMGT / IgBlast / iHMMune-align / MIXCR
   # give ancestral clones to IMGT/RevertToGermline to find germline sequences
 
 #8. Compare Method A (clones) to method B (ancestor) on the set of trees (from part 2 only)
