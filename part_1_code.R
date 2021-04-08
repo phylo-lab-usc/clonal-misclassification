@@ -14,6 +14,7 @@
 # 3. Method A - Germline: Using "tips" (clones) to find the germline
   # Give output of partis/clonify to IMGT for example to find the VDJ regions
   # Give output of IMGT to RevertToGermline to find the germline sequences
+  # will do one clonal family at a time
 
 # 4. Build a phylogeny for each cluster **(depending on partis/clonify outputs)**
   # the clustering methods may also include tree building
