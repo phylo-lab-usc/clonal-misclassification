@@ -26,7 +26,7 @@
 
 # 6. Method B - Germline: Using "ancestor" (ancestral clone) to find germline
     # use the phylogeny to find the ancestral clone using:
-    # PAUP/Phangorn/Castor/RAxML/IQTree
+    # Phangorn/RAxML/IQTree/ IMGT / IgBlast / iHMMune-align / MIXCR
     # give ancestral clones to IMGT/RevertToGermline to find germline sequences
 
 # 7. Reshuffle the nodes at a certain rate (try several rates)
