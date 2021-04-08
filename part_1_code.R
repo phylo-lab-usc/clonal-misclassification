@@ -18,7 +18,7 @@
 
 # 4. Build a phylogeny for each cluster **(depending on partis/clonify outputs)**
   # the clustering methods may also include tree building
-  # other methods include FastTREE, IQTree, RAxML
+  # other methods include FastTREE, IQTree, RAxML (but require an alignment)
 
 # 5. Investigate: use phylogeny in the following - 
   # diversification rates and if rates change over branches (BEAST)
