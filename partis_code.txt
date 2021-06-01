@@ -1,0 +1,19 @@
+## Partis simulation code
+
+# run the simulation on Docker
+# code files are in a folder called pyhton_test
+# change the input for n-sim-events, n-leaves, and shm-freq
+
+python python_test/autosimulator2.py --species human --n-procs 1 --yaml-folder run_1_yaml --n-sim-events 5 --n-leaves 5 --fasta-folder run_1_fasta --shm-freq 0.05 --generate-germline 
+
+# move the yaml files from the sub folders in run_1_yaml into a separate folder called run_yaml (there should be no subfolders)
+
+# run the partition 
+# change the n-max-final-cluster and n-partitions-to-write (default is 10 but it may write less)
+
+python python_test/auto_partition.py --n-procs 1 --n-max-final-cluster <input value> --n-partitions-to-write  <input value> --input-folder run_yaml --output-folder run_parition  --is-simu
+
+# run the partition summarizer
+
+python python_test/partition_summarizer.py --input-folder run_parition --outfname run_summarizer --is-simu
+
