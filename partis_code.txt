@@ -17,3 +17,12 @@ python python_test/auto_partition.py --n-procs 1 --n-max-final-cluster <input va
 
 python python_test/partition_summarizer.py --input-folder run_parition --outfname run_summarizer --is-simu
 
+
+#####using different set of functions#####
+
+bin/partis simulate --n-leaves 2 --n-sim-events 2 --outfname simu.yaml --rearrange-from-scratch --mutate-from-scratch
+
+bin/partis partition --infname simu.yaml --outfname simu_p.yaml
+
+bin/partis view-output --outfname simu_p.yaml
+
