@@ -1,0 +1,13 @@
+## after running partis to simulate and partition sequences
+## partis puts all the simulated sequences and the naive (ancestral) sequences into 1 file
+## use python to extract each family into its own file (separated from the naive)
+
+##### Step 1: get input_seqs and naive_seqs #####
+## naive and input sequences are separated
+## the yaml file is from partis output
+
+python yaml_to_families.py name2.yaml partitions.txt naive.txt
+
+##### Step 2: 
+# each family is moved into a separate file
+python partition_to_fasta.py partitions.txt
