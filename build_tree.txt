@@ -1,0 +1,16 @@
+## after each family is separated into its own fasta file
+## build a tree for each family
+
+##### STEP 1: build tree #####
+
+#raxml MPI is used since tree is built on a cluster
+# -f d option (best scoring ML tree)
+# -m GTRCAT (see: https://www.biorxiv.org/content/10.1101/2020.09.17.302505v1.abstract)
+# -s input_file
+# -n output_file
+# -N thread_number
+# -p random_seed
+
+raxmlHPC-MPI -f d -m GTRCAT -s partition1.fasta -n sim1tree -N 10 -p 38492
+
+##### STEP 2: find ancestral sequence ###
