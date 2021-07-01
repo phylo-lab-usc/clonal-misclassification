@@ -1,28 +1,30 @@
-## Partis simulation code
+##### Code to simulate sequences #####
+## simulate sequences in partis
+## partis is run through Docker (see partis instructions for how to install:
+## https://github.com/psathyrella/partis/blob/master/docs/install.md)
 
-# run the simulation on Docker
-# code files are in a folder called pyhton_test
-# change the input for n-sim-events, n-leaves, and shm-freq
+## after install, run docker:
+docker exec -it container_name bash 
 
-python python_test/autosimulator2.py --species human --n-procs 1 --yaml-folder run_1_yaml --n-sim-events 5 --n-leaves 5 --fasta-folder run_1_fasta --shm-freq 0.05 --generate-germline 
+##### Step 1: Simulate Sequences #####
 
-# move the yaml files from the sub folders in run_1_yaml into a separate folder called run_yaml (there should be no subfolders)
+## many parameter options: can pass a parameter-dir OR simulate-from-scratch
+## some parameter examples:
+# n-leaves is the mean number of leaves
+# constant-number-of-leaves forces leaves to be equal
+# indel-frequency is the number of sequences with indels (0.02 or 0.03, see:
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
+# n-indels-per-indeld-seq is the number of indels the sequences have (1:2)
+# mean-indel-length is the length of the indel (1)
 
-# run the partition 
-# change the n-max-final-cluster and n-partitions-to-write (default is 10 but it may write less)
+# simulate and rearrange from scratch:
+bin/partis simulate --n-leaves integer --n-sim-events integer --outfname name.yaml --rearrange-from-scratch --mutate-from-scratch
 
-python python_test/auto_partition.py --n-procs 1 --n-max-final-cluster <input value> --n-partitions-to-write  <input value> --input-folder run_yaml --output-folder run_parition  --is-simu
+##### Step 2: Partition Sequences into Clonal Families #####
 
-# run the partition summarizer
+# partition the simulated sequences into families
+bin/partis partition --infname name.yaml --outfname name2.yaml
 
-python python_test/partition_summarizer.py --input-folder run_parition --outfname run_summarizer --is-simu
-
-
-#####using different set of functions#####
-
-bin/partis simulate --n-leaves 2 --n-sim-events 2 --outfname simu.yaml --rearrange-from-scratch --mutate-from-scratch
-
-bin/partis partition --infname simu.yaml --outfname simu_p.yaml
-
-bin/partis view-output --outfname simu_p.yaml
+# view families
+bin/partis view-output --outfname name2.yaml
 
