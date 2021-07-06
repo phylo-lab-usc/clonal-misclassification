@@ -27,5 +27,8 @@ anc.ml <- ancestral.pml(fit, type = "ml")
 #plot
 plotAnc(tree2, anc.ml, 17)
 
+#find site pattern value
 #view ancestral sequence
-seqLogo(t(subset(anc.ml, getRoot(tree2), 1:20)[[1]]), ic.scale=FALSE)
+seqLogo(t(subset(anc.ml, getRoot(tree2), 1:site_pattern_value[[1]]), ic.scale=FALSE)
+        
+        
