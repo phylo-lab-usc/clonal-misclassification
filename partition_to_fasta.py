@@ -1,5 +1,5 @@
 import sys
-a=open(sys.argv[1],"r") #input is file containing sequences of all clonal families (output of yaml_to_families.py)
+a=open(sys.argv[1],"r") #input is .txt file containing sequences of all clonal families (output of yaml_to_families.py)
 b= a.readlines()
 l= len(b)
 for i in range(0,l,1):
