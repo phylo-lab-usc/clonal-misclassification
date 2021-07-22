@@ -6,6 +6,8 @@
 ## after install, run docker:
 docker exec -it container_name bash 
 
+########## Partis Original ##########
+
 ##### Step 1: Simulate Sequences #####
 
 ## many parameter options: can pass a parameter-dir OR simulate-from-scratch
@@ -27,4 +29,23 @@ bin/partis partition --infname name.yaml --outfname name2.yaml
 
 # view families
 bin/partis view-output --outfname name2.yaml
+
+
+########## Partis Second Version ##########
+# run the simulation on Docker
+# code files are in a folder called python_test
+# change the input for n-sim-events, n-leaves, and shm-freq
+ 
+# autosimulator function
+python python_test/autosimulator2.py --species human --n-procs 1 --yaml-folder run_1_yaml --n-sim-events 5 --n-leaves 5 --fasta-folder run_1_fasta --shm-freq 0.05 --generate-germline 
+
+# move the yaml files from the sub folders in run_1_yaml into a separate folder called run_yaml (there should be no subfolders)
+
+# partition function
+# change the n-max-final-cluster and n-partitions-to-write (default is 10 but it may write less)
+python python_test/auto_partition.py --n-procs 1 --n-max-final-cluster <input value> --n-partitions-to-write  <input value> --input-folder run_yaml --output-folder run_parition  --is-simu
+ 
+# partition summarizer function
+python python_test/partition_summarizer.py --input-folder run_parition --outfname run_summarizer --is-simu
+
 
