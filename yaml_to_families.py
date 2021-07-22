@@ -1,8 +1,8 @@
 import sys
-a= open(sys.argv[1],"r")
+a= open(sys.argv[1],"r") # .yaml file from partis partition as input
 b=a.readlines()
-c1= open(sys.argv[2],"w") #file for partitions with sequences in one file
-c2= open(sys.argv[3],"w") #file for naive sequences
+c1= open(sys.argv[2],"w") # .txt file for partitions with sequences in one file
+c2= open(sys.argv[3],"w") #.txt file for naive sequences
 l=len(b)
 x=""
 n=0
