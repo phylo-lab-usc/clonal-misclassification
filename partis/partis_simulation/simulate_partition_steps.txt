@@ -8,7 +8,12 @@ docker exec -it container_name bash
 
 ########## Partis Original ##########
 
-##### Step 1: Simulate Sequences #####
+##### Step 1: Parameter directory
+
+## creating parameter directory from a fasta file 
+bin/partis cache-parameters --infname name.fasta  --parameter-dir folder_name/ 
+
+##### Step 2: Simulate Sequences #####
 
 ## many parameter options: can pass a parameter-dir OR simulate-from-scratch
 ## some parameter examples:
@@ -19,16 +24,22 @@ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
 # n-indels-per-indeld-seq is the number of indels the sequences have (1:2)
 # mean-indel-length is the length of the indel (1)
 
+
 # simulate and rearrange from scratch:
 bin/partis simulate --n-leaves integer --n-sim-events integer --outfname name.yaml --rearrange-from-scratch --mutate-from-scratch
 
-##### Step 2: Partition Sequences into Clonal Families #####
+##### Step 3: Partition Sequences into Clonal Families #####
 
 # partition the simulated sequences into families
 bin/partis partition --infname name.yaml --outfname name2.yaml
 
 # view families
 bin/partis view-output --outfname name2.yaml
+
+
+
+
+
 
 
 ########## Partis Second Version ##########
