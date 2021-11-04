@@ -8,15 +8,28 @@ docker exec -it container_name bash
 
 ########## Partis Original ##########
 
-##### Step 1: Parameter directory
+
+##### Step 1: Parameter directory ####
 
 ## creating parameter directory from a fasta file 
 ## download a set of sequences from iReceptor, we are using COVID-19 data
 ## convert the tsv file to fasta using tsv_to_fasta.py so the input
 ## for cache-parameters is a fasta file
+
 bin/partis cache-parameters --infname name.fasta  --parameter-dir folder_name 
 
+# partition the fasta file used in cache-parameters to create multi-hmm folder in the parameter directory
+bin/partis partition --infname name.fasta --outfname name_pd.yaml --parameter-dir folder_name --count-parameters
+
+# name_pd.yaml is different from the output file generated during partitioning a file 
+
+
+
 ##### Step 2: Simulate Sequences #####
+
+## simulate and rearrange from scratch:
+bin/partis simulate --parameter-dir folder_name --n-sim-events integer --outfname name.yaml 
+# not using n-leaves because it's using the distribution from parameter directory
 
 ## many parameter options: can pass a parameter-dir OR simulate-from-scratch
 ## some parameter examples:
@@ -28,8 +41,6 @@ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
 # mean-indel-length is the length of the indel (1)
 
 
-# simulate and rearrange from scratch:
-bin/partis simulate --parameter-dir folder_name --n-leaves integer --n-sim-events integer --outfname name.yaml 
 
 ##### Step 3: Partition Sequences into Clonal Families #####
 
