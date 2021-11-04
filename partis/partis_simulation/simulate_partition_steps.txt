@@ -4,7 +4,7 @@
 ## https://github.com/psathyrella/partis/blob/master/docs/install.md)
 
 ## after install, run docker:
-docker exec -it container_name bash 
+sudo docker exec -it container_name bin/bash 
 
 ########## Partis Original ##########
 
@@ -49,6 +49,8 @@ bin/partis partition --infname name.yaml --outfname name2.yaml
 
 # view families
 bin/partis view-output --outfname name2.yaml
+
+
 
 
 
