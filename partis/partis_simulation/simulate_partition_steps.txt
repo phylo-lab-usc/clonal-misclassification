@@ -14,7 +14,7 @@ docker exec -it container_name bash
 ## download a set of sequences from iReceptor, we are using COVID-19 data
 ## convert the tsv file to fasta using tsv_to_fasta.py so the input
 ## for cache-parameters is a fasta file
-bin/partis cache-parameters --infname name.fasta  --parameter-dir folder_name/ 
+bin/partis cache-parameters --infname name.fasta  --parameter-dir folder_name 
 
 ##### Step 2: Simulate Sequences #####
 
@@ -29,7 +29,7 @@ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
 
 
 # simulate and rearrange from scratch:
-bin/partis simulate --n-leaves integer --n-sim-events integer --outfname name.yaml --rearrange-from-scratch --mutate-from-scratch
+bin/partis simulate --parameter-dir folder_name --n-leaves integer --n-sim-events integer --outfname name.yaml 
 
 ##### Step 3: Partition Sequences into Clonal Families #####
 
@@ -41,7 +41,7 @@ bin/partis view-output --outfname name2.yaml
 
 
 
-
+#########################################################################################################################
 
 
 
