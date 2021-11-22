@@ -20,7 +20,7 @@ for j in range(1,l,5): #5 because skipping the lines that don't have sequences
 	r= s.split('", "') #splitting each sequence in the family
 	l1 = len(r)
 	for k in range (0, l1, 1):
-		c1.write("seq"+str(k+1) +"\n"+ r[k] + "\n")
+		c1.write("fam"+ str(n) + "seq"+str(k+1) +"\n"+ r[k] + "\n")
 	c1.write("\n")        
 	s1= d[1] #contains naive sequences
 	q= s1.split('naive_seq": "') #pattern for naive sequences
