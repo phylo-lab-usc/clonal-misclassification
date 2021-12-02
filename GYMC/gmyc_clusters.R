@@ -5,8 +5,16 @@ require("ape")
 ## load phylogeny
 phy <- read.tree(file="file_name")
 
+## resolve polytomies
+phy2 <- multi2di(phy)
+
+# make ultrametric and ensure all edge lengths are > 0
+phy3 <- force.ultrametric(phy2, method = "extend")
+phy3$edge.length <- phy3$edge.length+0.01
+phy4 <- force.ultrametric(phy3, method = "extend")
+
 ## run gmyc function
-t1 <- gmyc(phy)
+t1 <- gmyc(phy4)
 
 ## summarize cluster information
 summary.gmyc(t1)
