@@ -4,16 +4,17 @@
 
 ##### STEP 1: build tree #####
 
-#raxml MPI is used since tree is built on a cluster
-# -f d option (best scoring ML tree)
-# -m GTRCAT (see: https://www.biorxiv.org/content/10.1101/2020.09.17.302505v1.abstract)
-# -s input_file
-# -n output_file
-# -N thread_number
-# -p random_seed
+#raxml-ng
+# -model GTR (see: https://www.biorxiv.org/content/10.1101/2020.09.17.302505v1.abstract)
+# -msa input_file
+# -seed random number for seed
+# -prefix output_file
+# --search ML tree search
 
-raxmlHPC-MPI -f d -m GTRCAT -s partition1.fasta -n sim1tree -N 10 -p 38492
+raxml-ng-mpi --model GTR --msa alignment_name --seed random_number --prefix output_name --search
 
 #after tree is built, resolve polytomies in R using ape multi2di function: 
 #multi2di(tree)
 
+#after tree is built, if required, make ultrametric using phytools force.ultrametric function: 
+#force.ultrametric(tree)
