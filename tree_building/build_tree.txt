@@ -12,9 +12,3 @@
 # --search ML tree search
 
 raxml-ng-mpi --model GTR --msa alignment_name --seed random_number --prefix output_name --search
-
-#after tree is built, resolve polytomies in R using ape multi2di function: 
-#multi2di(tree)
-
-#after tree is built, if required, make ultrametric using phytools force.ultrametric function: 
-#force.ultrametric(tree)
