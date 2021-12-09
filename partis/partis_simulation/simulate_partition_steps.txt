@@ -28,7 +28,10 @@ bin/partis partition --infname name.fasta --outfname name_pd.yaml --parameter-di
 ##### Step 2: Simulate Sequences #####
 
 ## simulate and rearrange from scratch:
-bin/partis simulate --parameter-dir folder_name --n-sim-events integer --outfname name.yaml 
+
+#set x for number of desired simulations
+for i in $(seq 1 x); do echo “$i”; bin/partis simulate --parameter-dir folder_name --n-sim-events integer --outfname $i.yaml; done
+ 
 # not using n-leaves because it's using the distribution from parameter directory
 
 ## many parameter options: can pass a parameter-dir OR simulate-from-scratch
@@ -45,7 +48,7 @@ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
 ##### Step 3: Partition Sequences into Clonal Families #####
 
 # partition the simulated sequences into families
-bin/partis partition --infname name.yaml --outfname name2.yaml
+for i in $(seq 1 x); do echo “$i”; bin/partis partition --infname $i.yaml --outfname $i_out.yaml; done
 
 # view families
 bin/partis view-output --outfname name2.yaml
