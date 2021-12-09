@@ -2,11 +2,11 @@
 # search for the naive sequence
 
 ##### STEP 2: find ancestral sequence ###
+ #--ancestral finds the ancestral sequences of each node
+ #--msa use the same alignment from the tree building
+ #--tree use the bestTree file from the tree search
 
-# -f A option finds the ancestral sequences
-# -t is the tree built in step 1 after polytomies are resolved
-
-raxml-ng-mpi --ancestral --msa alignment_name --tree output_name.raxml.bestTree --model GTR --prefix $i
+raxml-ng-mpi --ancestral --msa alignment_name --tree output_name.raxml.bestTree --model GTR --prefix output_asr_name
 
 #after tree is built, resolve polytomies in R using ape multi2di function: 
 #multi2di(output_name.raxml.bestTree)
