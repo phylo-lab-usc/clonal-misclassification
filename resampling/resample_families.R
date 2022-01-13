@@ -1,4 +1,5 @@
 ## resample the sequences in a family at a certain rate
+## this is for one simulation or for one real life data set
 
 ## load packages
 require("Biostrings")
@@ -64,9 +65,3 @@ dfs3[[i]] <- df3
 ## save files, one fasta file for each family
 lapply(1:length(dfs3), function(i) dataframe2fas(dfs3[[i]], 
                                                  file = paste0(names(dfs)[i], ".fasta")))
-
-## save files, all information saved for each family
-#lapply(1:length(dfs2), function(i) write.csv(dfs2[[i]], file = paste0(names(dfs)[i], 
-#                                                 ".csv"),row.names = FALSE))
-
-
