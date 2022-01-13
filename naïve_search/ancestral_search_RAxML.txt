@@ -2,13 +2,14 @@
 # search for the naive sequence
 
 ##### STEP 2: find ancestral sequence ###
+ #--ancestral finds the ancestral sequences of each node
+ #--msa use the same alignment from the tree building
+ #--tree use the bestTree file from the tree search
 
-# -f A option finds the ancestral sequences
-# -t is the tree built in step 1 after polytomies are resolved
+raxml-ng-mpi --ancestral --msa alignment_name --tree output_name.raxml.bestTree --model GTR --prefix output_asr_name
 
-raxmlHPC-MPI -f A -t tree_small_no_polytomies.tree -m GTRCAT -s partition1.fasta -n sim1asr -N 2 -p 53985
+#after tree is built, resolve polytomies in R using ape multi2di function: 
+#multi2di(output_name.raxml.bestTree)
 
-##### STEP 3: compare ancestral sequences ###
-
-#compare the root sequence from step 2 and the naive sequence from partis
-
+#after tree is built, if required, make ultrametric using phytools force.ultrametric function: 
+#force.ultrametric(output_name.raxml.bestTree)
