@@ -43,7 +43,7 @@ for (i in 1:223) {
   colnames(med_3) <- c("val", "pd")
 }
 
-#remove 4 trees where GMYC did not find clusters
+# remove 4 trees where GMYC did not find clusters
 med_3 <- med_3[-c(29,147,170,178),]
 number_3 <- number_3[-c(29,147,170,178),]
 
@@ -61,19 +61,72 @@ for (i in 1:207) {
   colnames(med_4) <- c("val", "pd")
 }
 
-#bind GMYC results together
+## bind GMYC results together
 number_all <- rbind(number_1, number_2, number_3, number_4)
 med_all <- rbind(med_1, med_2, med_3, med_4)
 
-#plot family median values - violin plot
+## plot family median values - violin plot
 p1 <- ggplot(med_all, aes(factor(pd), as.numeric(val))) + theme_classic()
 p1 <- p1 + geom_violin(aes(fill = factor(pd))) + labs(fill="Parameter Directory") +
   scale_fill_manual(values=c("#1b9e77","#ce1256","#7570b3","#a6761d")) +
   xlab("Parameter Directory") + ylab("Median Family Size")
 
-#plot family numbers - violin plot
+## plot family numbers - violin plot
 p2 <- ggplot(number_all, aes(factor(pd), as.numeric(val))) + theme_classic()
 p2 <- p2 + geom_violin(aes(fill = factor(pd))) + labs(fill="Parameter Directory") +
   scale_fill_manual(values=c("#1b9e77","#ce1256","#7570b3","#a6761d")) +
   xlab("Parameter Directory") + ylab("Number of Families") + geom_hline(yintercept=5, linetype='dotted', col = 'black')
 
+## load partis distributions
+sim_1 <- readRDS(file="simulation_distributions.rds")
+s_med_fam_size1 <- list()
+for (i in 1:250) {
+  s_med_fam_size1[[i]] <- median(sim_1[[i]]$freq)
+  s_med_1 <- data.frame(unlist(s_med_fam_size1))
+  s_med_1$group <- "1"
+  colnames(s_med_1) <- c("val", "pd")
+}
+
+sim_2 <- readRDS(file="simulation_distributions.rds")
+s_med_fam_size2 <- list()
+for (i in 1:194) {
+  s_med_fam_size2[[i]] <- median(sim_2[[i]]$freq)
+  s_med_2 <- data.frame(unlist(s_med_fam_size2))
+  s_med_2$group <- "2"
+  colnames(s_med_2) <- c("val", "pd")
+}
+
+sim_3 <- readRDS(file="simulation_distributions.rds")
+s_med_fam_size3 <- list()
+for (i in 1:223) {
+  s_med_fam_size3[[i]] <- median(sim_3[[i]]$freq)
+  s_med_3 <- data.frame(unlist(s_med_fam_size3))
+  s_med_3$group <- "3"
+  colnames(s_med_3) <- c("val", "pd")
+}
+
+sim_4 <- readRDS(file="simulation_distributions.rds")
+s_med_fam_size4 <- list()
+for (i in 1:207) {
+  s_med_fam_size4[[i]] <- median(sim_4[[i]]$freq)
+  s_med_4 <- data.frame(unlist(s_med_fam_size4))
+  s_med_4$group <- "4"
+  colnames(s_med_4) <- c("val", "pd")
+}
+
+## bind partis results together
+s_med_all <- rbind(s_med_1, s_med_2, s_med_3, s_med_4)
+
+## plot median values - violin plot
+p3 <- ggplot(s_med_all, aes(factor(pd), as.numeric(val))) + theme_classic()
+p3 <- p3 + geom_violin(aes(fill = factor(pd))) + labs(fill="Parameter Directory") +
+  scale_fill_manual(values=c("#1b9e77","#ce1256","#7570b3","#a6761d")) +
+  xlab("Parameter Directory") + ylab("Median Family Size")
+
+## plot GMYC and Partis together
+s_med_all$method <- "Partis"
+med_all$method <- "GMYC"
+med_together <- rbind(s_med_all, med_all)
+p4 <- ggplot(med_together) + aes(x=factor(pd), y=as.numeric(val), color=method) + theme_classic() + 
+  geom_violin() + labs(color="Parameter Directory") + scale_color_manual(values=c("grey", "black")) +
+  xlab("Parameter Directory") + ylab("Median Family Size")
