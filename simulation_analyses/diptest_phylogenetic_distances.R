@@ -87,3 +87,93 @@ for (i in 1:length(temp5)) {
   cp01.5s[[i]]$group <- "20%"
   cp01.5s[[i]] <- cp01.5s[[i]][cp01.5s[[i]]$value != 0,]  #remove 0s since these are distances between the same tip
 } 
+
+## join for plotting examples
+together <- list()
+for (i in 1:length(temp5)) {
+  tg <- rbind(cp02s[[i]], cp01.2s[[i]], cp01.3s[[i]], cp01.4s[[i]], cp01.5s[[i]])
+  together[[i]] <- tg
+  together[[i]] <- together[[i]][together[[i]]$value != 0,]
+}
+
+p_eg <- ggplot(together[[263]], aes(x = value, fill=group)) + 
+  geom_histogram(binwidth = 0.01) + 
+  theme_classic() + xlab("Phylogenetic Distance") + ylab("Count")
+p_eg
+
+## dip.test for all trees 
+
+## original
+data0s <- list()
+dts0 <- list()
+p_vals0 <- list()
+for (i in 1:length(temp5)) {
+  data0 <- cp02s[[i]]$value[cp02s[[i]]$value!=0]
+  data0s[[i]] <- data0
+  dts0[[i]] <- dip.test(data0s[[i]])
+  p_vals0[[i]] <- dts0[[i]]$p.value
+}
+
+p1 <- length(p_vals0[p_vals0 <= 0.05])/length(p_vals0) #type 1 error
+
+## 2.5%
+data1s <- list()
+dts1 <- list()
+p_vals1 <- list()
+for (i in 1:length(temp5)) {
+  data1 <- cp01.2s[[i]]$value[cp01.2s[[i]]$value!=0]
+  data1s[[i]] <- data1
+  dts1[[i]] <- dip.test(data1s[[i]])
+  p_vals1[[i]] <- dts1[[i]]$p.value
+}
+
+p2 <-length(p_vals1[p_vals1 <= 0.05])/length(p_vals1)
+
+## 5%
+data3s <- list()
+dts3 <- list()
+p_vals3 <- list()
+for (i in 1:length(temp5)) {
+  data3 <- cp01.3s[[i]]$value[cp01.3s[[i]]$value!=0]
+  data3s[[i]] <- data3
+  dts3[[i]] <- dip.test(data3s[[i]])
+  p_vals3[[i]] <- dts3[[i]]$p.value
+}
+
+p3 <-length(p_vals3[p_vals3 <= 0.05])/length(p_vals3)
+
+## 10%
+data4s <- list()
+dts4 <- list()
+p_vals4 <- list()
+for (i in 1:length(temp5)) {
+  data4 <- cp01.4s[[i]]$value[cp01.4s[[i]]$value!=0]
+  data4s[[i]] <- data4
+  dts4[[i]] <- dip.test(data4s[[i]])
+  p_vals4[[i]] <- dts4[[i]]$p.value
+}
+
+p4 <-length(p_vals4[p_vals4 <= 0.05])/length(p_vals4)
+
+## 20%
+data5s <- list()
+dts5 <- list()
+p_vals5 <- list()
+for (i in 1:length(temp5)) {
+  data5 <- cp01.5s[[i]]$value[cp01.5s[[i]]$value!=0]
+  data5s[[i]] <- data5
+  dts5[[i]] <- dip.test(data5s[[i]])
+  p_vals5[[i]] <- dts5[[i]]$p.value
+}
+
+p5 <-length(p_vals5[p_vals5 <= 0.05])/length(p_vals5)
+
+## record p1, p2, p3, p4, p5 into df
+diptest_df <- read.csv("diptest_all.csv", header=TRUE)
+
+dt <- ggplot(diptest_df, aes(x = resample, y=diptest, color=as.factor(pd))) + 
+  geom_point() +
+  theme_classic() + xlab("Resampling % ") + ylab("% Phylogenetic Distances Not Unimodal") +
+  labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
+
+dt + geom_line()
