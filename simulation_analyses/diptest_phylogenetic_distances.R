@@ -177,3 +177,49 @@ dt <- ggplot(diptest_df, aes(x = resample, y=diptest, color=as.factor(pd))) +
   labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
 
 dt + geom_line()
+
+## alternative method to dip.test using Mclust (GMM)
+library(mclust)
+
+## load original trees
+temp <- mixedsort(list.files(pattern=".*bestTree"))
+tree0 <- lapply(temp,read.tree)
+
+## calculate pd
+cp0s <- list()
+cp02s <- list()
+for (i in 1:length(temp)) {
+  cp0 <- as.data.frame(ape::cophenetic.phylo(tree0[[i]]))
+  cp0s[[i]] <- cp0
+  cp02 <- tidyr::gather(cp0s[[i]], cols, value)
+  cp02s[[i]] <- cp02
+  cp02s[[i]]$group <- "0%"
+  cp02s[[i]] <- cp02s[[i]][cp02s[[i]]$value != 0,] #remove 0s since these are distances between the same tip
+} 
+
+data0s <- list()
+dts0 <- list()
+dts0.1 <- list()
+p_vals0 <- list()
+result0 <- list()
+for (i in 1:length(cp02s)) {
+  data0 <- cp02s[[i]]$value[cp02s[[i]]$value!=0]
+  data0s[[i]] <- data0
+  dts0[[i]] <- Mclust(data0s[[i]])
+  dts0.1[[i]] <- Mclust(data0s[[i]], G=1)
+  result0[[i]] <- logLik(dts0[[i]])-logLik(dts0.1[[i]])
+  p_vals0[[i]] <- 1-pchisq(result0[[i]], df=dts0[[i]]$df-dts0.1[[i]]$df)
+}
+
+#number of significant simulations that have >1 cluster
+p_vals0_edit <- as.numeric(p_vals0)
+p1 <- length(p_vals0_edit[p_vals0_edit <= 0.05])/length(p_vals0_edit) #type 1 error
+
+#number of  simulations that have >1 cluster
+clusters0 <- list()
+for (i in 1:length(cp02s)) {
+  clusters0[[i]] <- dts0[[i]]$G
+}
+c1 <- length(clusters0[clusters0 > 1])/length(clusters0)
+
+
