@@ -73,9 +73,17 @@ p0 <- p0[,-c(1,3,4,7)]
 colnames(p0) <- c("seq", "fam", "sim")
 p0$name <- paste0(p0$fam,"_",p0$sim)
 p0$name <- gsub("fam", "family", p0$name)
+#####fix naive#####
+naive2 <- naive[naive$name %in% p0$name, ]
+naive2 <- naive2[order(match(naive2$name,p0$name)),]
+naive2$full <- paste0("n_",naive2$name)
+df_n <- data.frame(cbind(naive2$full, naive2$seq))
+colnames(df_n) <- c("name", "seq")
+##########
 p0$full <- paste0("0_",p0$name)
 df_0 <- data.frame(p0$full, p0$seq)
 colnames(df_0) <- c("name", "seq")
+#df_0$name <- gsub("fam", "family", df_0$name)
 
 # 2.5 level
 p0 <- read.table(file="root_naive.txt")
