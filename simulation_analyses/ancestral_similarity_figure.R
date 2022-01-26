@@ -277,3 +277,34 @@ chisq.test(as.vector(r1_values$value), as.vector(r3_values$value))
 chisq.test(as.vector(r1_values$value), as.vector(r4_values$value))
 chisq.test(as.vector(r1_values$value), as.vector(r5_values$value))
 
+## plot 1 directory at a time
+p_all <- ggplot(r_all, aes(x = value, fill=group)) + 
+  geom_histogram(binwidth = 0.5)  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count") 
+p_all+scale_fill_manual(values=c("grey","#f0027f","#386cb0","#bf5b17","#66a61e"), name = "Phylogeny Reshuffled")
+
+r_all.melt <- melt(r_all, measure.vars = c("group"))
+ggplot(r_all.melt, aes(x = value)) + geom_line(aes(color = group))
+
+## plotting all parameter directories together
+p_1 <- ggplot(r1_values, aes(x = value)) + 
+  geom_histogram(binwidth = 0.5)  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count") + xlim(50,100)
+p_2 <- ggplot(r3_values, aes(x = value)) + 
+  geom_histogram(binwidth = 0.5, fill="#f0027f")  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count")+ xlim(50,100)
+p_3 <- ggplot(r5_values, aes(x = value)) + 
+  geom_histogram(binwidth = 0.5, fill="#386cb0")  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count") + xlim(50,100)
+p_4 <- ggplot(r2_values, aes(x = value)) + 
+  geom_histogram(binwidth = 0.5, fill="#bf5b17")  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count")+ xlim(50,100)
+p_5 <- ggplot(r4_values, aes(x = value)) +
+  geom_histogram(binwidth = 0.5, fill="#66a61e")  + 
+  theme_classic() + xlab("Percent Sequence Similarity") + ylab("Count") + xlim(50,100)
+
+## plot grid
+cowplot::plot_grid(ncol=1, p_1, p_2, p_3, p_4, p_5)
+
+
+
