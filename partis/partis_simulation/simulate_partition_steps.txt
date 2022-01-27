@@ -8,7 +8,6 @@ sudo docker exec -it container_name bin/bash
 
 ########## Partis Original ##########
 
-
 ##### Step 1: Parameter directory ####
 
 ## creating parameter directory from a fasta file 
@@ -21,10 +20,6 @@ bin/partis cache-parameters --infname name.fasta  --parameter-dir folder_name
 # partition the fasta file used in cache-parameters to create multi-hmm folder in the parameter directory
 bin/partis partition --infname name.fasta --outfname name_pd.yaml --parameter-dir folder_name --count-parameters
 
-# name_pd.yaml is different from the output file generated during partitioning a file 
-
-
-
 ##### Step 2: Simulate Sequences #####
 
 ## simulate and rearrange from scratch:
@@ -32,34 +27,8 @@ bin/partis partition --infname name.fasta --outfname name_pd.yaml --parameter-di
 #set x for number of desired simulations
 for i in $(seq 1 x); do echo “$i”; bin/partis simulate --parameter-dir folder_name --n-sim-events integer --outfname $i.yaml; done
  
-# not using n-leaves because it's using the distribution from parameter directory
-
-## many parameter options: can pass a parameter-dir OR simulate-from-scratch
-## some parameter examples:
-# n-leaves is the mean number of leaves
-# constant-number-of-leaves forces leaves to be equal
-# indel-frequency is the number of sequences with indels (0.02 or 0.03, see:
-https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007977)
-# n-indels-per-indeld-seq is the number of indels the sequences have (1:2)
-# mean-indel-length is the length of the indel (1)
-
-
-
-##### Step 3: Partition Sequences into Clonal Families #####
-
-# partition the simulated sequences into families
-for i in $(seq 1 x); do echo “$i”; bin/partis partition --infname $i.yaml --outfname $i_out.yaml; done
-
-# view families
-bin/partis view-output --outfname name2.yaml
-
-
-
-
 
 #########################################################################################################################
-
-
 
 ########## Partis Second Version ##########
 # run the simulation on Docker
