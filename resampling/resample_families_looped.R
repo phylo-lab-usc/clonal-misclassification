@@ -7,7 +7,7 @@ require("reshape")
 require("seqRFLP")
 
 ## load fasta file
-fastaFile <- readDNAStringSet("file.fasta") 
+fastaFile <- readDNAStringSet("file.fasta") #eg file: "aligned_pd1_correct_sized_families_together.fasta"
 seq_name <- names(fastaFile)
 sequence <- paste(fastaFile)
 
@@ -154,4 +154,8 @@ for (i in 1:length(together)){
 ## save files, one fasta file for each family
 lapply(1:length(together), function(i) dataframe2fas(together[[i]], 
                                                      file = paste0(as.vector(unique_names[[i]]), ".fasta")))
+       
+## save files, all information saved for each family
+#lapply(1:length(dfs2), function(i) write.csv(dfs2[[i]], file = paste0(names(dfs)[i], ".csv"),row.names = FALSE))
+
 
