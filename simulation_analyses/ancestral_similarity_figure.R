@@ -285,6 +285,19 @@ chisq.test(as.vector(r1_values$value), as.vector(r3_values$value))
 chisq.test(as.vector(r1_values$value), as.vector(r4_values$value))
 chisq.test(as.vector(r1_values$value), as.vector(r5_values$value))
 
+## retreve info
+r_all_s <- r_all %>% group_split(group)
+mean(r_all_s[[1]]$value)
+mean(r_all_s[[2]]$value)
+mean(r_all_s[[3]]$value)
+mean(r_all_s[[4]]$value)
+mean(r_all_s[[5]]$value)
+median(r_all_s[[1]]$value)
+median(r_all_s[[2]]$value)
+median(r_all_s[[3]]$value)
+median(r_all_s[[4]]$value)
+median(r_all_s[[5]]$value)
+
 ## plot 1 directory at a time
 p_all <- ggplot(r_all, aes(x = value, fill=group)) + 
   geom_histogram(binwidth = 0.5)  + 
