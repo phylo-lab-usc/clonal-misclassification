@@ -34,3 +34,21 @@ m1[[i]] <- medusa(tree3[[i]])
 }
 
 saveRDS(m1, file="pd1_mega_medusa.RDS")
+
+shifts <- list()
+for (i in 1:length(m1)){
+shifts[[i]] <- length(unique(m1[[i]]$summary$Shift.Node)) #is this number of families?
+}
+
+shifts2 <- list()
+descendants <- list()
+descendants_shift1 <- list()
+equal1 <- list()
+for (i in 1:length(m1)){
+  shifts2[[i]] <- as.numeric(unique(m1[[i]]$summary$Shift.Node))
+  descendants[[i]] <- phangorn::Descendants(m1[[i]]$cache$phy)
+  descendants_shift1[[i]] <- descendants[[i]][[shifts2[[i]][1]]]
+  equal1[[i]] <- length(descendants_shift1[[i]]) == length(m1[[i]]$cache$phy$tip.label)
+  #if TRUE, there is a shift at the root
+}
+
