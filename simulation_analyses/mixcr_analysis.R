@@ -85,7 +85,13 @@ for (i in 1:207) {
   med_4 <- data.frame(unlist(med_fam_size4))
   number_4$group <- "4"
   med_4$group <- "4"
-  colnames(number_2) <- c("val", "pd")
-  colnames(med_2) <- c("val", "pd")
+  colnames(number_4) <- c("val", "pd")
+  colnames(med_4) <- c("val", "pd")
 }
+
+## join
+number_all <- rbind(number_1, number_2, number_3, number_4)
+median_all <- rbind(med_1, med_2, med_3, med_4)
+
+
 
