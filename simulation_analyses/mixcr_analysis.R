@@ -89,9 +89,4 @@ for (i in 1:207) {
   colnames(med_4) <- c("val", "pd")
 }
 
-## join
-number_all <- rbind(number_1, number_2, number_3, number_4)
-median_all <- rbind(med_1, med_2, med_3, med_4)
-
-
 
