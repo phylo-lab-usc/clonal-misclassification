@@ -21,7 +21,6 @@ for (i in 1:length(trees)) {
 ## new list of trees
 trees_edit <- trees_edit[-which(sapply(trees_edit, is.null))]
 
-
 ## run MEDUSA in geiger R package --> tree needs to be at least 7 tips?
 tree2 <- list()
 tree3 <- list()
@@ -32,7 +31,6 @@ tree2[[i]] <- multi2di(trees_edit[[i]])
 tree2[[i]]$edge.length <- tree2[[i]]$edge.length + 0.01
 tree3[[i]] <- force.ultrametric(tree2[[i]], method = "extend")
 m1[[i]] <- medusa(tree3[[i]]) 
-#print(m1[[i]]$summary)
 }
 
 saveRDS(m1, file="pd1_mega_medusa.RDS")
