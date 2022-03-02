@@ -118,7 +118,7 @@ length <- as.data.frame(unlist(lengths))
 val <- 5
 
 ggplot(length, aes(x=unlist(lengths))) + geom_histogram(binwidth=1, color="black", fill="grey") + 
-  xlim(0,110) + theme_classic() + xlab("Number of Clades") + ylab("Count") +
+  xlim(0,65) + theme_classic() + xlab("Number of Clades") + ylab("Count") +
   geom_vline(aes(xintercept = val), colour="blue", linetype="dashed")
 
 #counts
@@ -126,3 +126,4 @@ counts <- as.data.frame(unlist(count))
 
 ggplot(counts, aes(x=unlist(count))) + geom_histogram(binwidth=1, color="black", fill="grey") + 
   theme_classic() + xlab("Number of Non-Monophyletic Families") + ylab("Count") 
+
