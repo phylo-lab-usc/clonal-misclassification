@@ -89,8 +89,17 @@ ptest_ofs_1090 <- list()
 
 for (i in 1:length(trees)) { 
 dtest_ofs_1090[[i]] <- same_nodes(trees[[i]], data[[i]]$trait, data[[i]]$tip_label)
+}
+
+for (i in 1:length(trees)) { 
 ltest_ofs_1090[[i]] <- lapply(dtest_ofs_1090[[i]], function(x) extract.clade(trees[[i]], x)$tip.label)
+}
+
+for (i in 1:length(trees)) { 
 rtest_ofs_1090[[i]] <- unique(unlist(sapply(ltest_ofs_1090[[i]], '[', -1, simplify = TRUE)))
+}
+
+for (i in 1:length(trees)) { 
 ptest_ofs_1090[[i]] <- drop.tip(phy = trees[[i]], tip = rtest_ofs_1090[[i]])
 }
 
@@ -111,6 +120,11 @@ data_pruned[[i]] <- data[[i]][data[[i]]$tip_label %in% ptest_ofs_1090[[i]]$tip.l
 summary[[i]] <- dplyr::count(data_pruned[[i]], trait)
 count[[i]] <- nrow(subset(summary[[i]],n > 1))
 }
+
+##### save trees with perfectly grouped clades #####
+which_5 <- lengths == 5
+files_to_keep <- temp[as.logical(which_5)]
+saveRDS(files_to_keep, "trees_perfect_clades.rds")
 
 ##### plotting #####
 #lengths
