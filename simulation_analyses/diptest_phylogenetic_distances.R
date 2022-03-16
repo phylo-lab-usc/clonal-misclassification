@@ -7,6 +7,7 @@ library(phytools)
 library(ggplot2)
 require(gtools)
 library(diptest)
+library(cowplot)
 
 ## load original trees
 temp <- mixedsort(list.files(pattern=".*bestTree"))
@@ -221,5 +222,24 @@ for (i in 1:length(cp02s)) {
   clusters0[[i]] <- dts0[[i]]$G
 }
 c1 <- length(clusters0[clusters0 > 1])/length(clusters0)
+
+## plot dip.test and GMMs
+diptest_data <- read.csv("diptest_GMM.csv", header=TRUE)
+
+dt <- ggplot(diptest_data, aes(x = resample, y=diptest, color=as.factor(pd))) + 
+  geom_point() +
+  theme_classic() + xlab("Resampling % ") + ylab("% Phylogenetic Distances Not Unimodal") +
+  labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
+
+dt <- dt + geom_line()
+
+gmm <- ggplot(diptest_data, aes(x = resample, y=GMM_proportion_g_1, color=as.factor(pd))) + 
+  geom_point() +
+  theme_classic() + xlab("Resampling % ") + ylab("% GMMs with Greater than 1 Cluster") +
+  labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
+
+gmm <- gmm + geom_line()
+
+plot_grid(dt, gmm, nrow = 2, labels = c("A", "B"))
 
 
