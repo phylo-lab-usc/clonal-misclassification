@@ -229,14 +229,14 @@ diptest_data <- read.csv("diptest_GMM.csv", header=TRUE)
 dt <- ggplot(diptest_data, aes(x = resample, y=diptest, color=as.factor(pd))) + 
   geom_point() +
   theme_classic() + xlab("Resampling % ") + ylab("% Phylogenetic Distances Not Unimodal") +
-  labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
+  labs(colour="Parameter Directory") + scale_color_manual(values = c("#377eb8","#e41a1c","#4daf4a","#984ea3"))  
 
 dt <- dt + geom_line()
 
 gmm <- ggplot(diptest_data, aes(x = resample, y=GMM_proportion_g_1, color=as.factor(pd))) + 
   geom_point() +
   theme_classic() + xlab("Resampling % ") + ylab("% GMMs with Greater than 1 Cluster") +
-  labs(colour="Parameter Directory") + scale_color_manual(values = c("#1b9e77","#ce1256","#7570b3","#a6761d"))  
+  labs(colour="Parameter Directory") + scale_color_manual(values = c("#377eb8","#e41a1c","#4daf4a","#984ea3")) 
 
 gmm <- gmm + geom_line()
 
