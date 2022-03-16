@@ -5,7 +5,7 @@ require(gtools)
 require(dplyr)
 
 #####GMYC#####
-temp <- readRDS(file="trees_perfect_clades_pd4.rds")
+temp <- readRDS(file="trees_perfect_clades_pd1.rds")
 trees <- lapply(temp,read.tree)
 
 bin <- list()
@@ -73,9 +73,10 @@ saveRDS(sim_1_perfect, file="partis_pd4_perfect.rds")
 temp <- mixedsort(list.files(pattern="*.txt"))
 mixcr_1 <- lapply(temp,read.table, header=TRUE, fill=TRUE)
 mixcr_1 <- mixcr_1[to_keep]
+saveRDS(mixcr_1, "m1_perfect.rds")
 
 #####CHANGEO#####
-CO_1 <- read.table(file = 'mega_1_db-pass_clone-pass.tsv', sep = '\t', header = TRUE)
+CO_1 <- read.table(file = 'mega_4_db-pass_clone-pass.tsv', sep = '\t', header = TRUE)
 CO_1 <- transform(CO_1, name = colsplit(sequence_id, split = "\\_", names = c('fam', 'sim', 'seq')))
 CO_1 <- do.call(data.frame, CO_1)
 CO_1_list <- split(CO_1,CO_1$name.sim)
@@ -83,6 +84,7 @@ CO_1_list <- split(CO_1,CO_1$name.sim)
 sorting <- mixedsort(names(CO_1_list))
 CO_1_list <- CO_1_list[as.character(sorting)]
 CO_1_list_perfect <- CO_1_list[to_keep]
+saveRDS(CO_1_list_perfect, "CO4_perfect.rds")
 
 number_fams1 <- list()
 med_tables <- list()
