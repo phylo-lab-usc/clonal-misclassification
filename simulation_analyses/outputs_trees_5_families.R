@@ -3,9 +3,10 @@ require(phytools)
 require(splits)
 require(gtools)
 require(dplyr)
+require(Biostrings)
 
 #####GMYC#####
-temp <- readRDS(file="trees_perfect_clades_pd1.rds")
+temp <- readRDS(file="trees_perfect_clades_pd3.rds")
 trees <- lapply(temp,read.tree)
 
 bin <- list()
@@ -27,7 +28,7 @@ for (i in 1:length(trees)){
   t1[[i]] <- gmyc(tree_edit[[i]])
 }
 
-saveRDS(t1, "perfect_gmyc_output_megatrees_pd4.rds")
+saveRDS(t1, "perfect_gmyc_output_megatrees_pd3.2.rds")
 
 ##extract gmyc distributions from gmyc output
 
@@ -53,10 +54,9 @@ for(i in 1:length(t4)){
   t5[[i]] <- t4[[i]] %>% count(GMYC_spec) 
 }
 
-saveRDS(t5, "perfect_gmyc_size_distribution_pd4.rds")
+saveRDS(t5, "perfect_gmyc_size_distribution_pd3.2.rds")
 
 #####PARTIS#####
-sim_1 <- readRDS(file="simulation_distributions.rds")
 sim_1_files <- readRDS(file="trees_perfect_clades4.rds")
 sim_1_files <- as.data.frame(sim_1_files)
 data <- transform(sim_1_files, name = colsplit(sim_1_files, split = "\\_", names = c('aligned', 'cat', 'megatree', 'sim')))
@@ -65,9 +65,30 @@ data <- transform(data, name = colsplit(name.sim, split = "\\.", names = c('sim'
 data <- do.call(data.frame, data)
 data <- transform(data, name = colsplit(name.sim.1, split = "\\m", names = c('sim', 'number')))
 data <- do.call(data.frame, data)
-to_keep <- as.numeric(data$name.number)
-sim_1_perfect <- sim_1[to_keep]
-saveRDS(sim_1_perfect, file="partis_pd4_perfect.rds")
+data_name <- paste("aligned_cat_megatree_sim",data$name.number,".fasta")
+data_name <- gsub(" ", "", paste(data_name))
+
+fastaFiles <- lapply(data_name,readDNAStringSet)
+
+seq_name <- list()
+sequence <- list()
+df <- list()
+df2 <- list()
+df3 <- list()
+count_df <- list()
+
+for(i in 1:length(fastaFiles)){
+  seq_name[[i]] <- names(fastaFiles[[i]])
+  sequence[[i]] <- paste(fastaFiles[[i]])
+  df[[i]] <- data.frame(seq_name[[i]], sequence[[i]])
+  df2[[i]] <- transform(df[[i]], seq_name..i.. = colsplit(seq_name..i.., "_", names = c('famID', 'simID', 'seq')))
+  df3[[i]] <- do.call(data.frame, df2[[i]])
+  count_df[[i]] <- plyr::count(df3[[i]], "seq_name..i...famID")
+}
+
+## save distribution information
+saveRDS(count_df, "partis_pd4_perfect.rds")
+
 
 #####MIXCR#####
 temp <- mixedsort(list.files(pattern="*.txt"))
