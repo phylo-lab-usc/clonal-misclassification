@@ -57,7 +57,7 @@ for(i in 1:length(t4)){
 saveRDS(t5, "perfect_gmyc_size_distribution_pd3.2.rds")
 
 #####PARTIS#####
-sim_1_files <- readRDS(file="trees_perfect_clades4.rds")
+sim_1_files <- readRDS(file="trees_perfect_clades_pd1.rds")
 sim_1_files <- as.data.frame(sim_1_files)
 data <- transform(sim_1_files, name = colsplit(sim_1_files, split = "\\_", names = c('aligned', 'cat', 'megatree', 'sim')))
 data <- do.call(data.frame, data)
@@ -91,30 +91,25 @@ saveRDS(count_df, "partis_pd4_perfect.rds")
 
 
 #####MIXCR#####
-temp <- mixedsort(list.files(pattern="*.txt"))
-mixcr_1 <- lapply(temp,read.table, header=TRUE, fill=TRUE)
-mixcr_1 <- mixcr_1[to_keep]
+data_name <- paste("cat_megatree_sim",data$name.number,".fasta.txt")
+data_name <- gsub(" ", "", paste(data_name))
+mixcr_1 <- lapply(data_name ,read.table, header=TRUE, fill=TRUE)
 saveRDS(mixcr_1, "m1_perfect.rds")
 
 #####CHANGEO#####
-CO_1 <- read.table(file = 'mega_4_db-pass_clone-pass.tsv', sep = '\t', header = TRUE)
+CO_1 <- read.table(file = 'mega_1_db-pass_clone-pass.tsv', sep = '\t', header = TRUE)
 CO_1 <- transform(CO_1, name = colsplit(sequence_id, split = "\\_", names = c('fam', 'sim', 'seq')))
 CO_1 <- do.call(data.frame, CO_1)
 CO_1_list <- split(CO_1,CO_1$name.sim)
 
 sorting <- mixedsort(names(CO_1_list))
 CO_1_list <- CO_1_list[as.character(sorting)]
-CO_1_list_perfect <- CO_1_list[to_keep]
-saveRDS(CO_1_list_perfect, "CO4_perfect.rds")
 
-number_fams1 <- list()
-med_tables <- list()
-med_fam_size1 <- list()
-for (i in 1:length(CO_1_list)) {
-  number_fams1[[i]] <- length(unique(CO_1_list[[i]]$clone_id))
-  number_1 <- data.frame(unlist(number_fams1))
-  med_tables[[i]] <- CO_1_list[[i]] %>% group_by(clone_id) %>% summarise(n = n())
-  med_fam_size1[[i]] <- median(med_tables[[i]]$n)
-  med_1 <- data.frame(unlist(med_fam_size1))
-}
+data_name <- paste("sim",data$name.number)
+data_name <- gsub(" ", "", paste(data_name))
+
+CO_1_list_perfect <- CO_1_list[data_name]
+saveRDS(CO_1_list_perfect, "CO1_perfect.rds")
+
+
 
