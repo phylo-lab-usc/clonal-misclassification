@@ -5,9 +5,9 @@ library(geiger)
 library(ape)
 library(phytools)
 library(gtools)
-require("reshape")
-require("dplyr")
 library(ggplot2)
+library(reshape)
+library(dplyr)
 
 ##### load strict functions #####
 ## Load old functions
@@ -122,18 +122,36 @@ count[[i]] <- nrow(subset(summary[[i]],n > 1))
 }
 
 ##### save trees with perfectly grouped clades #####
-which_5 <- lengths == 5
-files_to_keep <- temp[as.logical(which_5)]
-saveRDS(files_to_keep, "trees_perfect_clades.rds")
+#which_5 <- lengths == 5
+#files_to_keep <- temp[as.logical(which_5)]
+#saveRDS(files_to_keep, "trees_perfect_clades.rds")
 
 ##### plotting #####
 #lengths
 length <- as.data.frame(unlist(lengths))
-val <- 5
+val <- 5 # add as a line on graph
+length$group <- ifelse(length$`unlist(lengths)` <= 5, "5", 
+                       ifelse(length$`unlist(lengths)` > 5, ">5", ">5")) # to colour bars on graph
 
-ggplot(length, aes(x=unlist(lengths))) + geom_histogram(binwidth=1, color="black", fill="grey") + 
-  xlim(0,65) + theme_classic() + xlab("Number of Clades") + ylab("Count") +
+# plot example with line at number 5
+ggplot(length, aes(x=unlist(lengths), fill=group)) + geom_histogram(binwidth=1, color="black") + 
+  theme_classic() + xlab("Number of Clades") + ylab("Count") + scale_fill_manual(values = c("5" = "#d95f02", ">5" = "#C0C0C0")) + 
   geom_vline(aes(xintercept = val), colour="blue", linetype="dashed")
+
+# plots with different colour bars
+a <- ggplot(length, aes(x=unlist(lengths), fill=group)) + geom_histogram(binwidth=1, color="black") + 
+  theme_classic() + xlab("Number of Clades") + ylab("Count") + scale_fill_manual(values = c("5" = "#d95f02", ">5" = "#C0C0C0"))
+a <- a + theme(legend.position="none")
+b <- ggplot(length, aes(x=unlist(lengths), fill=group)) + geom_histogram(binwidth=1, color="black") + 
+  theme_classic() + xlab("Number of Clades") + ylab("Count") + scale_fill_manual(values = c("5" = "#d95f02", ">5" = "#C0C0C0"))
+b <- b + theme(legend.position="none")
+c <- ggplot(length, aes(x=unlist(lengths), fill=group)) + geom_histogram(binwidth=1, color="black") + 
+  theme_classic() + xlab("Number of Clades") + ylab("Count") + scale_fill_manual(values = c("5" = "#d95f02", ">5" = "#C0C0C0"))
+c <- c + theme(legend.position="none")
+d <- ggplot(length, aes(x=unlist(lengths), fill=group)) + geom_histogram(binwidth=1, color="black") + 
+  theme_classic() + xlab("Number of Clades") + ylab("Count") + scale_fill_manual(values = c("5" = "#d95f02", ">5" = "#C0C0C0"))
+d <- d + theme(legend.position="none")
+
 
 #counts
 counts <- as.data.frame(unlist(count))
