@@ -4,7 +4,7 @@
 require(ggplot2)
 require(gtools)
 require(dplyr)
-require(reshape2)
+require(reshape)
 require(cowplot)
 
 ##### load GMYC distributions #####
@@ -296,9 +296,9 @@ mixcr_med_all$method <- "MiXCR"
 changeo_med_all$method <- "Change-O"
 med_together <- rbind(partis_med_all, GMYC_med_all, mixcr_med_all,changeo_med_all)
 
-p_med <- ggplot(med_together) + aes(x=factor(pd), y=as.numeric(val), color=method) + theme_classic() + 
+p_med <- ggplot(med_together) + aes(x=factor(pd), y=log(as.numeric(val)), color=method) + theme_classic() + 
   geom_boxplot() + labs(color="Method") + scale_color_manual(values=c("#1b9e77","#ce1256","#7570b3", "black")) +
-  xlab("Parameter Directory") + ylab("Median Family Size")
+  xlab("Parameter Directory") + ylab("log(Median Family Size)")
 
 ##### plot all methods number #####
 mixcr_number_all$method <- "MiXCR"
@@ -307,10 +307,10 @@ changeo_number_all$method <- "Change-O"
 
 num_together <- rbind(mixcr_number_all, GMYC_number_all, changeo_number_all)
 
-p_num <- ggplot(num_together) + aes(x=factor(pd), y=as.numeric(val), color=method) + theme_classic() +
+p_num <- ggplot(num_together) + aes(x=factor(pd), y=log(as.numeric(val)), color=method) + theme_classic() +
  geom_boxplot() + labs(color="Method") +
   scale_color_manual(values=c("#1b9e77","#ce1256","#7570b3")) + #""#7570b3", #a6761d"
-  xlab("Parameter Directory") + ylab("Number of Families") + geom_hline(yintercept=5, linetype='dotted', col = 'black')
+  xlab("Parameter Directory") + ylab("log(Number of Families)") + geom_hline(yintercept=log(5), linetype='dotted', col = 'black')
 
 ##### join plot #####
 plot_grid(p_med, p_num, nrow=2, labels = c("A", "B"))
