@@ -28,7 +28,7 @@ for (i in 1:length(trees)){
   t1[[i]] <- gmyc(tree_edit[[i]])
 }
 
-saveRDS(t1, "perfect_gmyc_output_megatrees_pd1.2.rds")
+saveRDS(t1, "perfect_gmyc_output_megatrees_pd1.rds")
 
 ##extract gmyc distributions from gmyc output
 
@@ -54,7 +54,7 @@ for(i in 1:length(t4)){
   t5[[i]] <- t4[[i]] %>% count(GMYC_spec) 
 }
 
-saveRDS(t5, "perfect_gmyc_size_distribution_pd3.2.rds")
+saveRDS(t5, "perfect_gmyc_size_distribution_pd1.2.rds")
 
 #####PARTIS#####
 sim_1_files <- readRDS(file="trees_perfect_clades_pd1.rds")
@@ -87,7 +87,7 @@ for(i in 1:length(fastaFiles)){
 }
 
 ## save distribution information
-saveRDS(count_df, "partis_pd4_perfect.rds")
+saveRDS(count_df, "partis_pd1_perfect.rds")
 
 
 #####MIXCR#####
