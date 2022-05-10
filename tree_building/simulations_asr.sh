@@ -11,11 +11,16 @@ module load gcc/7.3.0
 module load openmpi/3.1.4
 module load raxml-ng/0.9.0
 
+# after STEP 1: tree building
+# search for the naive sequence
+
 for i in "$SLURM_ARRAY_TASK_ID"*.fasta
 do
 echo $i
 done
 
+##### STEP 2: find ancestral sequence ###
+ #--ancestral finds the ancestral sequences of each node
+ #--msa use the same alignment from the tree building
+ #--tree use the bestTree file from the tree search
 raxml-ng-mpi --ancestral --msa $i --tree $i.raxml.bestTree --model GTR --prefix $i
-
-
