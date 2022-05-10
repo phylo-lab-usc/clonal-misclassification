@@ -6,7 +6,7 @@ require(dplyr)
 require(Biostrings)
 
 #####GMYC#####
-temp <- readRDS(file="trees_perfect_clades_pd3.rds")
+temp <- readRDS(file="trees_perfect_clades_pd1.rds")
 trees <- lapply(temp,read.tree)
 
 bin <- list()
@@ -28,11 +28,11 @@ for (i in 1:length(trees)){
   t1[[i]] <- gmyc(tree_edit[[i]])
 }
 
-saveRDS(t1, "perfect_gmyc_output_megatrees_pd3.2.rds")
+saveRDS(t1, "perfect_gmyc_output_megatrees_pd1.2.rds")
 
 ##extract gmyc distributions from gmyc output
 
-t1 <- readRDS("perfect_gmyc_output_megatrees_pd4.rds")
+t1 <- readRDS("perfect_gmyc_output_megatrees_pd1.rds")
 
 ## extract species information per cluster
 ## split into each cluster
