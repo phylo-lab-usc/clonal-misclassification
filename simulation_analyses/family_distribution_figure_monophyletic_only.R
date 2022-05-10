@@ -36,7 +36,7 @@ for (i in 1:length(gmyc_2)) {
   colnames(med_2) <- c("val", "pd")
 }
 
-gmyc_3 <- readRDS(file="perfect_gmyc_size_distribution_pd3.2.rds")
+gmyc_3 <- readRDS(file="perfect_gmyc_size_distribution_pd3.rds")
 number_fams3 <- list()
 med_fam_size3 <- list()
 for (i in 1:length(gmyc_3)) {
