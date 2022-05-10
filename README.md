@@ -1,2 +1,4 @@
 # clonal-misclassification
-code for clonal misclassification of B-cells
+
+**Download-data**
+tsv_to_fasta.py converts iReceptor data into a fasta file
